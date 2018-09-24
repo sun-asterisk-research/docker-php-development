@@ -1,0 +1,46 @@
+version: '2.2'
+
+services:
+  api-http:
+    image: abiosoft/caddy
+    restart: always
+    command:
+      - "root /srv/public"
+      - "log access.log"
+      - "fastcgi / php-fpm:9000 php"
+      - |
+        rewrite / {
+          r .*
+          to /index.php?{query}
+        }
+    labels:
+      - traefik.enable=true
+      - traefik.port=2015
+      - traefik.frontend.rule=Host:api.${DOMAIN}
+    volumes:
+      - ${PATH_API}:/srv
+    depends_on:
+      - php-fpm
+
+  php-fpm:
+    image: viblo/php:latest
+    restart: always
+    mem_limit: ${MEMORY_LIMIT_PHP_FPM:-1000m}
+    working_dir: /srv
+    volumes:
+      - ${PATH_API}:/srv
+      - ${PATH_DATA:-./data}/uploads:/srv/storage/uploads
+      - ./php/opcache.ini:/usr/local/etc/php/conf.d/opcache.ini
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_DATABASE=${POSTGRES_DATABASE:-viblo}
+      - DB_TEST_HOST=postgres
+      - DB_TEST_PORT=5432
+      - DB_TEST_DATABASE=${POSTGRES_TEST_DATABASE:-viblo}
+      - DB_USERNAME=${POSTGRES_USERNAME:-postgres}
+      - DB_PASSWORD=${POSTGRES_PASSWORD-postgres}
+      - REDIS_HOST=redis
+    depends_on:
+      - postgres
+      - redis

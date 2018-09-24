@@ -1,0 +1,21 @@
+version: '2.2'
+
+services:
+  web:
+    image: node:10-alpine
+    restart: always
+    labels:
+      - traefik.enable=true
+      - traefik.port=3000
+      - traefik.frontend.rule=Host:${DOMAIN}
+    working_dir: /srv
+    volumes:
+      - ${PATH_WEB}:/srv
+      - ../sdk-js:/sdk-js
+    expose:
+      - 3000
+    tty: true
+    depends_on:
+      - redis
+    environment:
+      - TZ=Asia/Ho_Chi_Minh

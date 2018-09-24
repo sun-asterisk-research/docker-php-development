@@ -1,0 +1,27 @@
+version: '2.2'
+
+services:
+  frontend:
+    image: traefik:alpine
+    restart: always
+    command:
+      - --web
+      - --docker
+      - --docker.domain=${DOMAIN_BACKEND}
+      - --docker.watch=true
+      - --docker.exposedbydefault=false
+    ports:
+      - ${PORT:-80}:80
+      - ${PORT_TRAEFIK:-8080}:8080
+      - ${PORT_WS:-6001}:6001
+    volumes:
+      - ./configs/traefik/traefik.toml:/etc/traefik/traefik.toml
+      - ${PATH_DOCKER_SOCKET}:/var/run/docker.sock
+
+  # Redis is here because we want `api` and `web` to share redis in development
+  redis:
+    image: redis:alpine
+    restart: always
+    mem_limit: ${MEMORY_LIMIT_REDIS:-200m}
+    volumes:
+      - ${PATH_DATA:-./data}/redis:/data

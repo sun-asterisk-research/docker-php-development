@@ -1,0 +1,28 @@
+version: '2.2'
+
+services:
+  postgres:
+    image: viblo/postgres:latest-alpine
+    restart: always
+    mem_limit: ${POSTGRES_MEMORY_LIMIT:-1000m}
+    volumes:
+      - ${PATH_DATA:-./data}/postgres:/var/lib/postgresql/data
+    ports:
+      - ${DB_PORT:-5432}:5432
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-viblo}
+      POSTGRES_USER: ${POSTGRES_USERNAME:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD-postgres}
+
+  postgres-test:
+    image: viblo/postgres:latest-alpine
+    restart: always
+    mem_limit: ${POSTGRES_MEMORY_LIMIT:-1000m}
+    volumes:
+      - ${PATH_DATA:-./data}/postgres_test:/var/lib/postgresql/data
+    ports:
+      - ${DB_TEST_PORT:-5433}:5432
+    environment:
+      POSTGRES_DB: ${POSTGRES_TEST_DB:-viblo}
+      POSTGRES_USER: ${POSTGRES_USERNAME:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD-postgres}

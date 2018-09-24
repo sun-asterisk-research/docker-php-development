@@ -1,0 +1,16 @@
+version: '2.2'
+
+services:
+  mailhog:
+    image: mailhog/mailhog
+    restart: always
+    labels:
+      - traefik.enable=true
+      - traefik.port=8025
+      - traefik.frontend.rule=Host:${DOMAIN_BACKEND};PathPrefixStrip:/mailhog
+    mem_limit: ${MEMORY_LIMIT_MAILHOG:-200m}
+    environment:
+      - MH_STORAGE=maildir
+      - MH_MAILDIR_PATH=/data
+    volumes:
+      - ${PATH_DATA:-./data}/mailhog:/data

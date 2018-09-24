@@ -1,0 +1,55 @@
+#!/bin/bash
+
+__getenv() {
+    LINE=$(grep $1 .env | xargs -d '\n')
+    echo ${LINE#*=}
+}
+
+__get_compose_files() {
+    files=( 'docker-compose.yml' )
+
+    while read -r module; do
+        files+=( "compose/$module.yml" )
+    done < modules
+
+    if [ -f "docker-compose.override.yml" ]; then
+        files+=( 'docker-compose.override.yml' )
+    fi
+
+    files_argument=''
+
+    for file in "${files[@]}"
+    do
+        files_argument+="-f $file "
+    done
+
+    echo $files_argument
+}
+
+up() {
+    docker-compose $(__get_compose_files) up -d $@
+}
+
+up-undetached() {
+    docker-compose $(__get_compose_files) up $@
+}
+
+down() {
+    docker-compose $(__get_compose_files) down $@
+}
+
+ps() {
+    docker ps -f name=$(__getenv COMPOSE_PROJECT_NAME)_
+}
+
+sh() {
+    docker exec -it $(__getenv COMPOSE_PROJECT_NAME)_$1_1 sh
+}
+
+exec() {
+    docker exec -it $(__getenv COMPOSE_PROJECT_NAME)_$1_1 ${@:2}
+}
+
+logs() {
+    docker logs $(__getenv COMPOSE_PROJECT_NAME)_$1_1 ${@:2}
+}

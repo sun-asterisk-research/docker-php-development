@@ -1,0 +1,9 @@
+version: '2.2'
+
+services:
+  beanstalkd:
+    container_name: viblo_beanstalkd
+    image: schickling/beanstalkd
+    restart: always
+    mem_limit: ${MEMORY_LIMIT_BEANSTALKD:-200m}
+

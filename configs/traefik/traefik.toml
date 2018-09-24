@@ -1,0 +1,10 @@
+defaultEntryPoints = ["http"]
+
+[entryPoints]
+  [entryPoints.http]
+  address = ":80"
+  compress = true
+
+  [entryPoints.ws]
+  address = ":6001"
+  compress = true
