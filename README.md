@@ -19,18 +19,19 @@ cp .env.example .env
 
 Notable things are:
 
-- **PATH_API**, **PATH_WEB**: paths to your code directories. They will be mounted into the container at */srv*.
-- **DOMAIN** and **PORT**: Domain and port to access the application.
+- `PATH_API`, `PATH_WEB`: paths to your code directories. They will be mounted into the container at */srv*.
+- `DOMAIN` and `PORT`: Domain and port to access the application.
+- `COMPOSE_PROJECT_NAME`: used to isolate environments when you run multiple projects.
 
 Not very important things:
 
-- **PATH_DATA**: Path to the directory you want to persist data to (Postgres, uploads .etc)
-- **PATH_LOGS**: Where to persist logs of some services.
-- **DB_PORT** and **DB_TEST_PORT**: Ports published by Postgres databases so you can connect to Postgres with your DB management tool.
-- **PORT_TRAEFIK**: Port to access traefik on localhost.
-- **DOMAIN_BACKEND**: The domain to access some backend services (traefik, mailhog .etc).
+- `PATH_DATA`: Path to the directory you want to persist data to (Postgres, uploads .etc)
+- `PATH_LOGS`: Where to persist logs of some services.
+- `DB_PORT` and `DB_TEST_PORT`: Ports published by Postgres databases so you can connect to Postgres with your DB management tool.
+- `PORT_TRAEFIK`: Port to access traefik on localhost.
+- `DOMAIN_BACKEND`: The domain to access some backend services (traefik, mailhog .etc).
 
-*Note:* All directory paths can be relative to where you run `up.sh`.
+*Note:* All directory paths can be relative to where you run `bash viblo`.
 
 ### Modules
 
