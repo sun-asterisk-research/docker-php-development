@@ -34,10 +34,10 @@ services:
     environment:
       - DB_HOST=postgres
       - DB_PORT=5432
-      - DB_DATABASE=${POSTGRES_DATABASE:-viblo}
+      - DB_DATABASE=${POSTGRES_DB:-viblo}
       - DB_TEST_HOST=postgres
       - DB_TEST_PORT=5432
-      - DB_TEST_DATABASE=${POSTGRES_TEST_DATABASE:-viblo}
+      - DB_TEST_DATABASE=${POSTGRES_TEST_DB:-viblo}
       - DB_USERNAME=${POSTGRES_USERNAME:-postgres}
       - DB_PASSWORD=${POSTGRES_PASSWORD-postgres}
       - REDIS_HOST=redis

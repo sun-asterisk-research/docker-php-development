@@ -19,7 +19,7 @@ services:
     restart: always
     mem_limit: ${POSTGRES_MEMORY_LIMIT:-1000m}
     volumes:
-      - ${PATH_DATA:-./data}/postgres_test:/var/lib/postgresql/data
+      - ${PATH_DATA:-./data}/postgres-test:/var/lib/postgresql/data
     ports:
       - ${DB_TEST_PORT:-5433}:5432
     environment:
