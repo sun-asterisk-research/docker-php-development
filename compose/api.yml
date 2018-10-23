@@ -23,14 +23,13 @@ services:
       - php-fpm
 
   php-fpm:
-    image: viblo/php:latest
+    image: viblo/php:fpm
     restart: always
     mem_limit: ${MEMORY_LIMIT_PHP_FPM:-1000m}
     working_dir: /srv
     volumes:
       - ${PATH_API}:/srv
       - ${PATH_DATA:-./data}/uploads:/srv/storage/uploads
-      - ./php/opcache.ini:/usr/local/etc/php/conf.d/opcache.ini
     environment:
       - DB_HOST=postgres
       - DB_PORT=5432
