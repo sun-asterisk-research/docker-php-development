@@ -1,5 +1,1 @@
-#!/bin/bash
-
-. functions.sh
-
-$@
+./project
