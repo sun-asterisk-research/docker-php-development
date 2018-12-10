@@ -1,0 +1,16 @@
+version: '2.2'
+
+services:
+  echo-server:
+    image: viblo/echo-server:latest
+    restart: always
+    labels:
+      - traefik.enable=true
+      - traefik.port=6001
+      - traefik.ws.frontend.rule=Host:${DOMAIN};PathPrefix:/socket.io
+      - traefik.ws.frontend.entryPoints=http,ws
+    environment:
+      - REDIS_HOST=redis
+      - NODE_ENV=development
+      - AUTH_HOST=http://api-proxy:3000
+      - AUTH_ENDPOINT=/api/broadcasting/auth
