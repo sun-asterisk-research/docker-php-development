@@ -1,7 +1,7 @@
 version: '2.2'
 
 services:
-  api-http:
+  caddy:
     image: abiosoft/caddy
     restart: always
     command:
@@ -26,4 +26,4 @@ services:
     mem_limit: ${MEMORY_LIMIT_PHP_FPM:-1000m}
     working_dir: /srv
     volumes:
-      - ${PATH_API}:/srv
+      - ${PATH_PHP}:/srv

@@ -6,4 +6,3 @@ services:
     image: schickling/beanstalkd
     restart: always
     mem_limit: ${MEMORY_LIMIT_BEANSTALKD:-200m}
-

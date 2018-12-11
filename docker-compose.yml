@@ -2,18 +2,19 @@ version: '2.2'
 
 services:
   frontend:
-    image: traefik:alpine
+    image: traefik:1.7
     restart: always
     command:
-      - --web
       - --docker
-      - --docker.domain=${DOMAIN_BACKEND}
       - --docker.watch=true
       - --docker.exposedbydefault=false
     ports:
       - ${PORT:-80}:80
-      - ${PORT_TRAEFIK:-8080}:8080
       - ${PORT_WS:-6001}:6001
+    labels:
+      - traefik.enable=true
+      - traefik.port=8080
+      - traefik.frontend.rule=Host:${DOMAIN_BACKEND}
     volumes:
       - ./configs/traefik/traefik.toml:/etc/traefik/traefik.toml
-      - ${PATH_DOCKER_SOCKET}:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock

@@ -19,19 +19,19 @@ cp .env.example .env
 
 Notable things are:
 
-- `PATH_API`, `PATH_WEB`: paths to your code directories. They will be mounted into the container at */srv*.
+- `PATH_PHP`, `PATH_WEB`: paths to your code directories. They will be mounted into the containers.
 - `DOMAIN` and `PORT`: Domain and port to access the application.
 - `COMPOSE_PROJECT_NAME`: used to isolate environments when you run multiple projects.
 
 Not very important things:
 
-- `PATH_DATA`: Path to the directory you want to persist data to (Postgres, uploads .etc)
+- `PATH_DATA`: Path to the directory you want to persist data to (Database, uploads .etc)
 - `PATH_LOGS`: Where to persist logs of some services.
-- `DB_PORT` and `DB_TEST_PORT`: Ports published by Postgres databases so you can connect to Postgres with your DB management tool.
-- `PORT_TRAEFIK`: Port to access traefik on localhost.
-- `DOMAIN_BACKEND`: The domain to access some backend services (traefik, mailhog .etc).
+- `DB_PORT` and `DB_TEST_PORT`: Ports published by database so you can connect with your DB management tool.
+  Default values depend on which database you choose (`5432` & `5433` for Postgres, `3306` & `3307` for MySQL)
+- `DOMAIN_BACKEND`: Backend domain to access some backend services (traefik, mailhog .etc). Default: `backend.localhost`
 
-*Note:* All directory paths can be relative to where you run `bash viblo`.
+*Note:* All directory paths can be relative to where you run `./project`.
 
 ### Modules
 
@@ -44,8 +44,10 @@ cp modules.example modules
 Specify which module to include. Example:
 
 ```plain
-db
-api
+mysql
+redis
+php
+frameworks/laravel
 web
 ```
 
@@ -54,13 +56,13 @@ Available modules are in *compose* folder. For development, most likely you will
 ## Start
 
 ```shell
-bash viblo up
+./project up
 ```
 
 ## Shutdown
 
 ```shell
-bash viblo down
+./project down
 ```
 
 ## Getting inside containers
@@ -68,13 +70,13 @@ bash viblo down
 To get inside a container you can use
 
 ```sh
-bash viblo sh <service>
+./project sh <service>
 ```
 
 e.g
 
 ```sh
-bash viblo sh web
+./project sh web
 ```
 
 If you are not inside this folder, you can use `docker exec` to enter containers. Most containers uses `alpine` image so you can get into them with `sh`
@@ -88,27 +90,27 @@ docker exec -it <container_name> sh
 You can run commands like this
 
 ```sh
-bash viblo exec <service> <command>
+./project exec <service> <command>
 ```
 
 Example
 
 ```sh
-bash viblo exec web yarn dev
+./project exec web yarn dev
 ```
 
 ## List all containers
 
-Container names are prefixed with the `COMPOSE_PROJECT_NAME` environment variable (default: `viblo`). You can list them all with
+Container names are prefixed with the `COMPOSE_PROJECT_NAME` environment variable (default: `php-project`). You can list them all with
 
 ```sh
-bash viblo ps
+./project ps
 ```
 
 or use `docker ps`. e.g.
 
 ```sh
-docker ps -f name=viblo_
+docker ps -f name=php-project_
 ```
 
 ## Overriding `docker-compose` file

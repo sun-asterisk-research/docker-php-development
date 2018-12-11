@@ -18,7 +18,7 @@ services:
     depends_on:
       - redis
     environment:
-      - APP_KEY=${APP_KEY}
+      - APP_KEY=${WEB_APP_KEY}
       - TZ=Asia/Ho_Chi_Minh
       - REDIS_HOST=redis
 
@@ -32,8 +32,8 @@ services:
     depends_on:
       - redis
     environment:
-      - APP_KEY=${APP_KEY}
+      - APP_KEY=${WEB_APP_KEY}
       - REDIS_HOST=redis
-      - PROXY_TARGET=http://api-http:2015
+      - PROXY_TARGET=http://caddy:2015
       - PROXY_PREFIX=/api
       - PROXY_TARGET_NAME=VibloApi

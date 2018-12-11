@@ -8,3 +8,11 @@ defaultEntryPoints = ["http"]
   [entryPoints.ws]
   address = ":6001"
   compress = true
+
+  [entryPoints.traefik]
+  address = ":8080"
+  compress = true
+
+[api]
+entryPoint = "traefik"
+dashboard = true
