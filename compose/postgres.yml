@@ -10,9 +10,9 @@ services:
     ports:
       - ${DB_PORT:-5432}:5432
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-viblo}
-      POSTGRES_USER: ${POSTGRES_USERNAME:-postgres}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD-postgres}
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
 
   postgres-test:
     image: viblo/postgres:latest-alpine
@@ -23,6 +23,6 @@ services:
     ports:
       - ${DB_TEST_PORT:-5433}:5432
     environment:
-      POSTGRES_DB: ${POSTGRES_TEST_DB:-viblo}
-      POSTGRES_USER: ${POSTGRES_USERNAME:-postgres}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD-postgres}
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}

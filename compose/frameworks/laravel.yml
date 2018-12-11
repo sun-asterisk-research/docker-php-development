@@ -1,0 +1,15 @@
+version: '2.2'
+
+# Environment variables and volume mounts for laravel app
+services:
+  php-fpm:
+    volumes:
+      - ${PATH_DATA:-./data}/uploads:/srv/storage/uploads
+    environment:
+      - DB_HOST=${LARAVEL_DB_HOST}
+      - DB_PORT=${LARAVEL_DB_PORT}
+      - DB_TEST_HOST=${LARAVEL_DB_TEST_HOST}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - REDIS_HOST=redis

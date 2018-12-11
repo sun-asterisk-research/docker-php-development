@@ -17,8 +17,6 @@ services:
       - traefik.enable=true
       - traefik.port=2015
       - traefik.frontend.rule=Host:api.${DOMAIN}
-    volumes:
-      - ${PATH_API}:/srv
     depends_on:
       - php-fpm
 
@@ -29,17 +27,3 @@ services:
     working_dir: /srv
     volumes:
       - ${PATH_API}:/srv
-      - ${PATH_DATA:-./data}/uploads:/srv/storage/uploads
-    environment:
-      - DB_HOST=postgres
-      - DB_PORT=5432
-      - DB_DATABASE=${POSTGRES_DB:-viblo}
-      - DB_TEST_HOST=postgres
-      - DB_TEST_PORT=5432
-      - DB_TEST_DATABASE=${POSTGRES_TEST_DB:-viblo}
-      - DB_USERNAME=${POSTGRES_USERNAME:-postgres}
-      - DB_PASSWORD=${POSTGRES_PASSWORD-postgres}
-      - REDIS_HOST=redis
-    depends_on:
-      - postgres
-      - redis

@@ -1,0 +1,31 @@
+version: '2.2'
+
+services:
+  mysql:
+    image: mysql:8
+    restart: always
+    mem_limit: ${MYSQL_MEMORY_LIMIT:-1000m}
+    volumes:
+      - ${PATH_DATA:-./data}/mysql:/var/lib/mysql
+    ports:
+      - ${DB_PORT:-3306}:3306
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+
+  mysql-test:
+    image: mysql:8
+    restart: always
+    mem_limit: ${MYSQL_MEMORY_LIMIT:-1000m}
+    volumes:
+      - ${PATH_DATA:-./data}/mysql-test:/var/lib/mysql
+    ports:
+      - ${DB_TEST_PORT:-3307}:3306
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+
