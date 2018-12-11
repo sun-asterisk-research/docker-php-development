@@ -5,9 +5,8 @@ services:
     image: abiosoft/caddy
     restart: always
     command:
-      - "root /srv/public"
-      - "log access.log"
-      - "fastcgi / php-fpm:9000 php"
+      - root /php-fpm/${CADDY_ROOT:-public}
+      - fastcgi / php-fpm:9000 php
       - |
         rewrite / {
           r .*
