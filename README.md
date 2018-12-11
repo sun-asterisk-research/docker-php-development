@@ -44,7 +44,7 @@ cp modules.example modules
 Specify which module to include. Example:
 
 ```plain
-mysql
+postgres
 redis
 php
 frameworks/laravel
