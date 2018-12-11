@@ -1,0 +1,18 @@
+version: '2.2'
+
+services:
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    restart: always
+    labels:
+      - traefik.enable=true
+      - traefik.port=80
+      - traefik.frontend.rule=Host:${DOMAIN_BACKEND};PathPrefix:/phpmyadmin;ReplacePathRegex:^/phpmyadmin/(.*) /$$1
+      - traefik.frontend.redirect.regex=^(.*)/phpmyadmin$$
+      - traefik.frontend.redirect.replacement=$$1/phpmyadmin/
+    environment:
+      - PMA_HOSTS=mysql,mysql-test
+      - PMA_PORT=3306
+      - PMA_USER=${DB_USERNAME}
+      - PMA_PASSWORD=${DB_PASSWORD}
+      - PMA_ABSOLUTE_URI=${DOMAIN_BACKEND}:${PORT}/phpmyadmin
