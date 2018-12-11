@@ -17,11 +17,3 @@ services:
     volumes:
       - ./configs/traefik/traefik.toml:/etc/traefik/traefik.toml
       - ${PATH_DOCKER_SOCKET}:/var/run/docker.sock
-
-  # Redis is here because we want `api` and `web` to share redis in development
-  redis:
-    image: redis:alpine
-    restart: always
-    mem_limit: ${MEMORY_LIMIT_REDIS:-200m}
-    volumes:
-      - ${PATH_DATA:-./data}/redis:/data

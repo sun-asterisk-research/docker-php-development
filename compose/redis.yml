@@ -1,0 +1,9 @@
+version: '2.2'
+
+services:
+  redis:
+    image: redis:alpine
+    restart: always
+    mem_limit: ${MEMORY_LIMIT_REDIS:-200m}
+    volumes:
+      - ${PATH_DATA:-./data}/redis:/data
