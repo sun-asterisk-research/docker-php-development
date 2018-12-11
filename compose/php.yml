@@ -16,7 +16,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.port=2015
-      - traefik.frontend.rule=Host:api.${DOMAIN}
+      - traefik.frontend.rule=Host:${DOMAIN} # This will be overriden in web.yml if it is enabled
     depends_on:
       - php-fpm
 

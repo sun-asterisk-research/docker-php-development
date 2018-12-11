@@ -7,7 +7,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.port=3000
-      - traefik.frontend.rule=Host:${DOMAIN}
+      - traefik.frontend.rule=Host:${DOMAIN} # Take over the public domain from php application
     working_dir: /srv
     volumes:
       - ${PATH_WEB}:/srv
@@ -37,3 +37,7 @@ services:
       - PROXY_TARGET=http://caddy:2015
       - PROXY_PREFIX=/api
       - PROXY_TARGET_NAME=VibloApi
+
+  caddy:
+    labels:
+      - traefik.frontend.rule=Host:api.${DOMAIN} # Override Caddy's label so wep app can take over the public domain
