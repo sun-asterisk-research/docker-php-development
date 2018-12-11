@@ -46,6 +46,10 @@ sh() {
     docker exec -it $(__getenv COMPOSE_PROJECT_NAME)_$1_1 sh
 }
 
+bash() {
+    docker exec -it $(__getenv COMPOSE_PROJECT_NAME)_$1_1 bash
+}
+
 exec() {
     docker exec -it $(__getenv COMPOSE_PROJECT_NAME)_$1_1 ${@:2}
 }
