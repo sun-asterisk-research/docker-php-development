@@ -40,4 +40,8 @@ services:
 
   caddy:
     labels:
-      - traefik.frontend.rule=Host:api.${DOMAIN} # Override Caddy's label so wep app can take over the public domain
+      - traefik.frontend.rule=Host:api.${DOMAIN} # Override Caddy's label so web app can take over the public domain
+    networks:
+      default:
+        aliases:
+          - api
