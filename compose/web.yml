@@ -8,9 +8,9 @@ services:
       - traefik.enable=true
       - traefik.port=3000
       - traefik.frontend.rule=Host:${DOMAIN} # Take over the public domain from php application
-    working_dir: /srv
+    working_dir: /web
     volumes:
-      - ${PATH_WEB}:/srv
+      - ${PATH_WEB}:/web
       - ../sdk-js:/sdk-js
     expose:
       - 3000

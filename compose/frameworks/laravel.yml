@@ -4,7 +4,7 @@ version: '2.2'
 services:
   php-fpm:
     volumes:
-      - ${PATH_DATA:-./data}/uploads:/srv/storage/uploads
+      - ${PATH_DATA:-./data}/uploads:/php-fpm/storage/uploads
     environment:
       - DB_HOST=${LARAVEL_DB_HOST}
       - DB_PORT=${LARAVEL_DB_PORT}

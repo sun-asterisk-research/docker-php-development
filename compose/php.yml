@@ -24,6 +24,6 @@ services:
     image: viblo/php:fpm
     restart: always
     mem_limit: ${MEMORY_LIMIT_PHP_FPM:-1000m}
-    working_dir: /srv
+    working_dir: /php-fpm
     volumes:
-      - ${PATH_PHP}:/srv
+      - ${PATH_PHP}:/php-fpm
