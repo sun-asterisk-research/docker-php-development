@@ -3,6 +3,7 @@ version: '2.2'
 services:
   mysql:
     image: mysql:8
+    command: --default-authentication-plugin=mysql_native_password
     restart: always
     mem_limit: ${MYSQL_MEMORY_LIMIT:-1000m}
     volumes:
@@ -28,4 +29,3 @@ services:
       MYSQL_USER: ${DB_USERNAME}
       MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
-
