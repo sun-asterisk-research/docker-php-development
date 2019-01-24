@@ -2,7 +2,7 @@ version: '2.2'
 
 services:
   postgres:
-    image: viblo/postgres:latest-alpine
+    image: postgres:11-alpine
     restart: always
     mem_limit: ${POSTGRES_MEMORY_LIMIT:-1000m}
     volumes:
@@ -15,7 +15,7 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
 
   postgres-test:
-    image: viblo/postgres:latest-alpine
+    image: postgres:11-alpine
     restart: always
     mem_limit: ${POSTGRES_MEMORY_LIMIT:-1000m}
     volumes:
