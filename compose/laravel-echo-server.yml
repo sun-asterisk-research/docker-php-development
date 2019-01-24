@@ -11,5 +11,5 @@ services:
     environment:
       - REDIS_HOST=redis
       - NODE_ENV=development
-      - AUTH_HOST=http://api:3000
+      - AUTH_HOST=http://api:2015
       - AUTH_ENDPOINT=/broadcasting/auth
