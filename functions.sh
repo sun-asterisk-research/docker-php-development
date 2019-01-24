@@ -57,3 +57,7 @@ exec() {
 logs() {
     docker logs $(__getenv COMPOSE_PROJECT_NAME)_$1_1 ${@:2}
 }
+
+inspect() {
+    docker inspect $(__getenv COMPOSE_PROJECT_NAME)_$1_1 ${@:2}
+}
