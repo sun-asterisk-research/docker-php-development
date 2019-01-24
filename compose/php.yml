@@ -2,7 +2,7 @@ version: '2.2'
 
 services:
   caddy:
-    image: abiosoft/caddy
+    image: abiosoft/caddy:no-stats
     restart: always
     command:
       - root /php-fpm/${CADDY_ROOT:-public}
@@ -10,13 +10,13 @@ services:
       - |
         rewrite / {
           r .*
-          to /index.php?{query}
+          to {path} {path}/ /index.php?{query}
         }
     labels:
       - traefik.enable=true
       - traefik.port=2015
-      - traefik.frontend.rule=Host:${DOMAIN} # This will be overriden in web.yml if it is enabled
-    depends_on:
+      - traefik.frontend.rule=Host:${DOMAIN}
+    volumes_from:
       - php-fpm
 
   php-fpm:

@@ -7,40 +7,22 @@ services:
     labels:
       - traefik.enable=true
       - traefik.port=3000
-      - traefik.frontend.rule=Host:${DOMAIN} # Take over the public domain from php application
+      - traefik.frontend.rule=Host:${DOMAIN}
     working_dir: /web
     volumes:
       - ${PATH_WEB}:/web
-      - ../sdk-js:/sdk-js
     expose:
       - 3000
     tty: true
     depends_on:
       - redis
     environment:
-      - APP_KEY=${WEB_APP_KEY}
       - TZ=Asia/Ho_Chi_Minh
       - REDIS_HOST=redis
 
-  api-proxy:
-    image: viblo/api-proxy:latest
-    restart: always
-    labels:
-      - traefik.enable=true
-      - traefik.port=3000
-      - traefik.web.frontend.rule=Host:${DOMAIN};PathPrefix:/api
-    depends_on:
-      - redis
-    environment:
-      - APP_KEY=${WEB_APP_KEY}
-      - REDIS_HOST=redis
-      - PROXY_TARGET=http://caddy:2015
-      - PROXY_PREFIX=/api
-      - PROXY_TARGET_NAME=VibloApi
-
   caddy:
     labels:
-      - traefik.frontend.rule=Host:api.${DOMAIN} # Override Caddy's label so web app can take over the public domain
+      - traefik.frontend.rule=Host:${DOMAIN};PathPrefixStrip:${API_PATH_PREFIX:-/api}
     networks:
       default:
         aliases:

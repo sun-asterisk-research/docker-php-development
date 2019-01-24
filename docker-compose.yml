@@ -10,7 +10,7 @@ services:
       - --docker.exposedbydefault=false
     ports:
       - ${PORT:-80}:80
-      - ${PORT_WS:-6001}:6001
+      - ${PORT_TRAEFIK:-8080}:8080
     labels:
       - traefik.enable=true
       - traefik.port=8080

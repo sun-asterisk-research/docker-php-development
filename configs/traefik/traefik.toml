@@ -5,10 +5,6 @@ defaultEntryPoints = ["http"]
   address = ":80"
   compress = true
 
-  [entryPoints.ws]
-  address = ":6001"
-  compress = true
-
   [entryPoints.traefik]
   address = ":8080"
   compress = true
