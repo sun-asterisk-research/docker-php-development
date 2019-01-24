@@ -26,3 +26,4 @@ services:
     working_dir: /php-fpm
     volumes:
       - ${PATH_PHP}:/php-fpm
+      - ${HOSTS_FILE}:/etc/hosts

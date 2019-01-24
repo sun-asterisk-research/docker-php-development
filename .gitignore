@@ -6,4 +6,6 @@ modules
 modules.*
 !modules.example
 
+hosts
+
 docker-compose.override.yml

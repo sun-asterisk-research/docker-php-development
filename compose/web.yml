@@ -11,6 +11,7 @@ services:
     working_dir: /web
     volumes:
       - ${PATH_WEB}:/web
+      - ${HOSTS_FILE}:/etc/hosts
     expose:
       - 3000
     tty: true
