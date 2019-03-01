@@ -1,7 +1,7 @@
 version: '2.2'
 
 services:
-  frontend:
+  traefik:
     image: traefik:1.7
     restart: always
     command:
