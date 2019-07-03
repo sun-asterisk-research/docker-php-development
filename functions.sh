@@ -1,8 +1,7 @@
 #!/bin/bash
 
 __getenv() {
-    LINE=$(grep $1 .env | xargs -d '\n')
-    echo ${LINE#*=}
+    grep -m1 ^$1= .env | cut -d'=' -f2
 }
 
 __get_compose_files() {
