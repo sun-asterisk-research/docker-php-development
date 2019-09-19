@@ -2,10 +2,11 @@ version: '2.2'
 
 services:
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTICSEARCH_VERSION:-6.5.4}
+    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTICSEARCH_VERSION:-7.3.2}
     restart: always
     environment:
+      - discovery.type=single-node
       - xpack.security.enabled=false
-      - ES_JAVA_OPTS=-Xms${MEMORY_LIMIT_ELASTICSEARCH:-1G} -Xmx${MEMORY_LIMIT_ELASTICSEARCH:-1G}
+      - ES_JAVA_OPTS=-Xms${MEMORY_LIMIT_ELASTICSEARCH:-512m} -Xmx${MEMORY_LIMIT_ELASTICSEARCH:-512m}
     volumes:
       - ${PATH_DATA:-./data}/elasticsearch:/usr/share/elasticsearch/data
