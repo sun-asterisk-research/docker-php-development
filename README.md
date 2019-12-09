@@ -41,17 +41,15 @@ Make a **services** file
 cp services.example services
 ```
 
-Specify which module to include. Example:
+Specify which service to include. Example:
 
 ```plain
-postgres
+mysql
 redis
 php
-frameworks/laravel
-web
 ```
 
-Available modules are in *compose* folder. For development, most likely you will only need the above ones.
+Available services are in *compose* folder. For development, most likely you will only need the above ones.
 
 ## Start
 
