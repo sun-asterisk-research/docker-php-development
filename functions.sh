@@ -9,7 +9,7 @@ __get_compose_files() {
 
     while read -r module; do
         files+=( "compose/$module.yml" )
-    done < modules
+    done < services
 
     if [ -f "docker-compose.override.yml" ]; then
         files+=( 'docker-compose.override.yml' )

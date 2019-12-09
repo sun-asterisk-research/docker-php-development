@@ -2,9 +2,9 @@
 .env.*
 !.env.example
 
-modules
-modules.*
-!modules.example
+services
+services.*
+!services.example
 
 hosts
 

@@ -33,12 +33,12 @@ Not very important things:
 
 *Note:* All directory paths can be relative to where you run `./project`.
 
-### Modules
+### Services
 
-Make a **modules** file
+Make a **services** file
 
 ```shell
-cp modules.example modules
+cp services.example services
 ```
 
 Specify which module to include. Example:
