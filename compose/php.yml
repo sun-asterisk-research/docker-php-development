@@ -5,8 +5,8 @@ services:
     image: abiosoft/caddy:no-stats
     restart: always
     command:
-      - root /php-fpm/${CADDY_ROOT:-public}
-      - fastcgi / php-fpm:9000 php
+      - root /php/${CADDY_ROOT:-public}
+      - fastcgi / php:9000 php
       - |
         rewrite / {
           r .*
@@ -17,13 +17,13 @@ services:
       - traefik.port=2015
       - traefik.frontend.rule=Host:${DOMAIN}
     volumes_from:
-      - php-fpm
+      - php
 
-  php-fpm:
-    image: viblo/php:fpm
+  php:
+    image: sunasteriskrnd/php-workspace:7.4
     restart: always
-    mem_limit: ${MEMORY_LIMIT_PHP_FPM:-1000m}
-    working_dir: /php-fpm
+    mem_limit: ${MEMORY_LIMIT_PHP_FPM:-1G}
+    working_dir: /php
     volumes:
-      - ${PATH_PHP}:/php-fpm
+      - ${PATH_PHP}:/php
       - ${HOSTS_FILE}:/etc/hosts

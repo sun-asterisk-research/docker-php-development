@@ -2,8 +2,8 @@ version: '2.2'
 
 # Environment variables and volume mounts for laravel app
 services:
-  php-fpm:
+  php:
     volumes:
-      - ${PATH_DATA:-./data}/uploads:/php-fpm/storage/uploads
+      - ${PATH_DATA:-./data}/uploads:/php/storage/uploads
     environment:
       - REDIS_HOST=redis
