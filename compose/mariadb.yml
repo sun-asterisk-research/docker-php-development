@@ -14,17 +14,3 @@ services:
       MYSQL_USER: ${DB_USERNAME}
       MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
-
-  mariadb-test:
-    image: mariadb:10
-    restart: always
-    mem_limit: ${MYSQL_MEMORY_LIMIT:-1G}
-    volumes:
-      - ${PATH_DATA:-./data}/mariadb-test:/var/lib/mysql
-    ports:
-      - ${DB_TEST_PORT:-3307}:3306
-    environment:
-      MYSQL_DATABASE: ${DB_DATABASE}
-      MYSQL_USER: ${DB_USERNAME}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}

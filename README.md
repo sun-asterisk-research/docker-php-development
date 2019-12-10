@@ -27,8 +27,8 @@ Not very important things:
 
 - `PATH_DATA`: Path to the directory you want to persist data to (Database, uploads .etc)
 - `PATH_LOGS`: Where to persist logs of some services.
-- `DB_PORT` and `DB_TEST_PORT`: Ports published by database so you can connect with your DB management tool.
-  Default values depend on which database you choose (`5432` & `5433` for Postgres, `3306` & `3307` for MySQL)
+- `DB_PORT`: Port published by database so you can connect with your DB management tool.
+  Default value depends on which database you choose (`5432` for Postgres, `3306` for MySQL)
 - `DOMAIN_BACKEND`: Backend domain to access some backend services (traefik, mailhog .etc). Default: `backend.localhost`
 
 *Note:* All directory paths can be relative to where you run `./project`.
@@ -74,7 +74,7 @@ To get inside a container you can use
 e.g
 
 ```sh
-./project sh web
+./project sh php
 ```
 
 If you are not inside this folder, you can use `docker exec` to enter containers. Most containers uses `alpine` image so you can get into them with `sh`
