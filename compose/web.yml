@@ -2,7 +2,7 @@ version: '2.2'
 
 services:
   web:
-    image: node:10-alpine
+    image: node:12-alpine
     restart: always
     labels:
       - traefik.enable=true
@@ -12,14 +12,7 @@ services:
     volumes:
       - ${PATH_WEB}:/web
       - ${HOSTS_FILE}:/etc/hosts
-    expose:
-      - 3000
     tty: true
-    depends_on:
-      - redis
-    environment:
-      - TZ=Asia/Ho_Chi_Minh
-      - REDIS_HOST=redis
 
   caddy:
     labels:
