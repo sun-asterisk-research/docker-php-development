@@ -6,8 +6,8 @@ services:
     restart: always
     labels:
       - traefik.enable=true
-      - traefik.port=3000
-      - traefik.frontend.rule=Host:${DOMAIN}
+      - traefik.http.routers.web.rule=Host(`${DOMAIN}`)
+      - traefik.http.services.web.loadbalancer.server.port=3000
     working_dir: /web
     volumes:
       - ${PATH_WEB}:/web
@@ -16,7 +16,7 @@ services:
 
   caddy:
     labels:
-      - traefik.frontend.rule=Host:${DOMAIN};PathPrefixStrip:${API_PATH_PREFIX:-/api}
+      - traefik.http.routers.caddy.rule=Host(`${DOMAIN}`) && PathPrefix(`${API_PATH_PREFIX:-/api}`)
     networks:
       default:
         aliases:

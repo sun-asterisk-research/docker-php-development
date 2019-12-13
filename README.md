@@ -29,7 +29,7 @@ Not very important things:
 - `PATH_LOGS`: Where to persist logs of some services.
 - `DB_PORT`: Port published by database so you can connect with your DB management tool.
   Default value depends on which database you choose (`5432` for Postgres, `3306` for MySQL)
-- `DOMAIN_BACKEND`: Backend domain to access some backend services (traefik, mailhog .etc). Default: `backend.localhost`
+- `DOMAIN_SECONDARY`: Secondary domain to access some backend services (traefik, mailhog .etc). Default: `localhost`
 
 *Note:* All directory paths can be relative to where you run `./project`.
 

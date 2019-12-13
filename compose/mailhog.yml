@@ -6,8 +6,8 @@ services:
     restart: always
     labels:
       - traefik.enable=true
-      - traefik.port=8025
-      - traefik.frontend.rule=Host:${DOMAIN_BACKEND};PathPrefixStrip:/mailhog
+      - traefik.http.routers.mailhog.rule=Host(`${DOMAIN_SECONDARY}`)
+      - traefik.http.services.mailhog.loadbalancer.server.port=8025
     mem_limit: ${MEMORY_LIMIT_MAILHOG:-200m}
     environment:
       - MH_STORAGE=maildir

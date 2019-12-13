@@ -14,8 +14,8 @@ services:
         }
     labels:
       - traefik.enable=true
-      - traefik.port=2015
-      - traefik.frontend.rule=Host:${DOMAIN}
+      - traefik.http.routers.caddy.rule=Host(`${DOMAIN}`)
+      - traefik.http.services.caddy.loadbalancer.server.port=2015
     volumes_from:
       - php
 

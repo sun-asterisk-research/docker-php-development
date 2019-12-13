@@ -6,10 +6,9 @@ services:
     restart: always
     labels:
       - traefik.enable=true
-      - traefik.port=80
-      - traefik.frontend.rule=Host:${DOMAIN_BACKEND};PathPrefix:/pgadmin
+      - traefik.http.routers.pgadmin.rule=Host(`pgadmin.${DOMAIN_SECONDARY}`)
+      - traefik.http.services.pgadmin.loadbalancer.server.port=80
     environment:
-      - SCRIPT_NAME=/pgadmin
       - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL:-admin}       # Cannot be changed after first launch
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD:-admin} # Cannot be changed after first launch
     volumes:

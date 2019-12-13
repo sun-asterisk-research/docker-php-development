@@ -1,14 +1,14 @@
-defaultEntryPoints = ["http"]
-
 [entryPoints]
   [entryPoints.http]
   address = ":80"
-  compress = true
 
-  [entryPoints.traefik]
-  address = ":8080"
-  compress = true
+[providers]
+  [providers.file]
+  directory = "/etc/traefik"
+  filename = "traefik.toml"
+
+  [providers.docker]
+  exposedByDefault = false
 
 [api]
-entryPoint = "traefik"
 dashboard = true

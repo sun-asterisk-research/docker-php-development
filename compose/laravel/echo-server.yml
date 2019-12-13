@@ -7,7 +7,8 @@ services:
     labels:
       - traefik.enable=true
       - traefik.port=6001
-      - traefik.frontend.rule=Host:${DOMAIN};PathPrefix:/socket.io
+      - traefik.http.routers.laravel-echo.rule=Host(`${DOMAIN}`) && PathPrefix(`/socket.io`)
+      - traefik.http.services.laravel-echo.loadbalancer.server.port=6001
     environment:
       - REDIS_HOST=redis
       - NODE_ENV=development

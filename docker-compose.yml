@@ -2,7 +2,7 @@ version: '2.2'
 
 services:
   traefik:
-    image: traefik:1.7
+    image: traefik:2.1
     restart: always
     command:
       - --docker
@@ -12,8 +12,10 @@ services:
       - ${PORT:-80}:80
     labels:
       - traefik.enable=true
-      - traefik.port=8080
-      - traefik.frontend.rule=Host:${DOMAIN_BACKEND}
+      - traefik.http.routers.traefik.rule=Host(`traefik.${DOMAIN_SECONDARY}`)
+      - traefik.http.routers.traefik.service=api@internal
+      - traefik.http.middlewares.traefik-dashboard.redirectRegex.regex=/
+      - traefik.http.middlewares.traefik-dashboard.redirectRegex.replacement=/dashboard/
     volumes:
       - ./configs/traefik/traefik.toml:/etc/traefik/traefik.toml
       - /var/run/docker.sock:/var/run/docker.sock

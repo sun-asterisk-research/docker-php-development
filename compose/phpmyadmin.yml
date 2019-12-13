@@ -6,13 +6,10 @@ services:
     restart: always
     labels:
       - traefik.enable=true
-      - traefik.port=80
-      - traefik.frontend.rule=Host:${DOMAIN_BACKEND};PathPrefix:/phpmyadmin;ReplacePathRegex:^/phpmyadmin/(.*) /$$1
-      - traefik.frontend.redirect.regex=^(.*)/phpmyadmin$$
-      - traefik.frontend.redirect.replacement=$$1/phpmyadmin/
+      - traefik.http.routers.phpmyadmin.rule=Host(`phpmyadmin.${DOMAIN_SECONDARY}`)
+      - traefik.http.services.phpmyadmin.loadbalancer.server.port=80
     environment:
       - PMA_HOSTS=mysql,mysql-test
       - PMA_PORT=3306
       - PMA_USER=${DB_USERNAME}
       - PMA_PASSWORD=${DB_PASSWORD}
-      - PMA_ABSOLUTE_URI=${DOMAIN_BACKEND}:${PORT}/phpmyadmin
