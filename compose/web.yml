@@ -14,9 +14,9 @@ services:
       - ${HOSTS_FILE}:/etc/hosts
     tty: true
 
-  caddy:
+  nginx:
     labels:
-      - traefik.http.routers.caddy.rule=Host(`${DOMAIN}`) && PathPrefix(`${API_PATH_PREFIX:-/api}`)
+      - traefik.http.routers.nginx.rule=Host(`${DOMAIN}`) && PathPrefix(`${API_PATH_PREFIX:-/api}`)
     networks:
       default:
         aliases:

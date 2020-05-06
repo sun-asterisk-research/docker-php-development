@@ -1,21 +1,21 @@
 version: '2.2'
 
 services:
-  caddy:
-    image: abiosoft/caddy:no-stats
+  nginx:
+    image: nginx:alpine
     restart: always
+    entrypoint: sh
     command:
-      - root /php/${CADDY_ROOT:-public}
-      - fastcgi / php:9000 php
-      - |
-        rewrite / {
-          r .*
-          to {path} {path}/ /index.php?{query}
-        }
+      - -c
+      - envsubst '$${DOCUMENT_ROOT}' < /etc/nginx/conf.d/default.conf.tpl | tee /etc/nginx/conf.d/default.conf && exec nginx -g "daemon off;"
     labels:
       - traefik.enable=true
-      - traefik.http.routers.caddy.rule=Host(`${DOMAIN}`)
-      - traefik.http.services.caddy.loadbalancer.server.port=2015
+      - traefik.http.routers.nginx.rule=Host(`${DOMAIN}`)
+      - traefik.http.services.nginx.loadbalancer.server.port=80
+    environment:
+      - DOCUMENT_ROOT=${NGINX_DOCUMENT_ROOT:-/php/public}
+    volumes:
+      - ./config/nginx/default.conf:/etc/nginx/conf.d/default.conf.tpl:ro
     volumes_from:
       - php
 
