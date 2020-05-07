@@ -13,7 +13,7 @@ services:
       - traefik.http.services.minio.loadbalancer.server.port=9000
     environment:
       MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY:-minio}
-      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY:-minio-secret}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY:-miniostorage}
       MINIO_REGION_NAME: ${MINIO_REGION_NAME:-local}
     volumes:
       - ${PATH_DATA:-./data}/minio:/data

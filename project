@@ -7,8 +7,10 @@ __getenv() {
 __get_compose_files() {
     files=( 'docker-compose.yml' )
 
-    while read -r module; do
-        files+=( "compose/$module.yml" )
+    while read -r service; do
+        if [ ! -z $service ]; then
+            files+=( "compose/$service.yml" )
+        fi
     done < services
 
     if [ -f "docker-compose.override.yml" ]; then
