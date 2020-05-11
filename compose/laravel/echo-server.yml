@@ -13,5 +13,5 @@ services:
       - REDIS_HOST=redis
       - REDIS_KEY_PREFIX=${LARAVEL_ECHO_SERVER_REDIS_KEY_PREFIX}
       - NODE_ENV=development
-      - AUTH_HOST=http://api:2015
+      - AUTH_HOST=http://api:80
       - AUTH_ENDPOINT=/broadcasting/auth
