@@ -14,6 +14,6 @@ services:
     environment:
       MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY:-minio}
       MINIO_SECRET_KEY: ${MINIO_SECRET_KEY:-miniostorage}
-      MINIO_REGION_NAME: ${MINIO_REGION_NAME:-local}
+      MINIO_REGION_NAME: ${MINIO_REGION_NAME:-us-east-1}
     volumes:
       - ${PATH_DATA:-./data}/minio:/data
