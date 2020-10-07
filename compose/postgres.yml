@@ -1,4 +1,4 @@
-version: '2.2'
+version: "2.2"
 
 services:
   postgres:
@@ -7,8 +7,6 @@ services:
     mem_limit: ${POSTGRES_MEMORY_LIMIT:-1G}
     volumes:
       - ${PATH_DATA:-./data}/postgres:/var/lib/postgresql/data
-    ports:
-      - ${DB_PORT:-5432}:5432
     environment:
       POSTGRES_DB: ${DB_DATABASE}
       POSTGRES_USER: ${DB_USERNAME}
