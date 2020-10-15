@@ -1,4 +1,9 @@
-version: '2.2'
+version: "2.2"
+
+networks:
+  default:
+  frontend:
+    external: true
 
 services:
   web:
@@ -6,8 +11,11 @@ services:
     restart: always
     labels:
       - traefik.enable=true
-      - traefik.http.routers.web.rule=Host(`${DOMAIN}`)
-      - traefik.http.services.web.loadbalancer.server.port=3000
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-web.rule=Host(`${DOMAIN}`)
+      - traefik.http.services.${COMPOSE_PROJECT_NAME}-web.loadbalancer.server.port=3000
+    networks:
+      - default
+      - frontend
     working_dir: /web
     volumes:
       - ${PATH_WEB}:/web
@@ -16,8 +24,11 @@ services:
 
   nginx:
     labels:
-      - traefik.http.routers.nginx.rule=Host(`${DOMAIN}`) && PathPrefix(`${API_PATH_PREFIX:-/api}`)
+      - traefik.http.middlewares.${COMPOSE_PROJECT_NAME}-api-stripprefix.stripprefix.prefixes=${API_PATH_PREFIX:-/api}
+      - traefik.http.middlewares.${COMPOSE_PROJECT_NAME}-api-stripprefix.stripprefix.forceSlash=false
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-api-pathprefix.rule=Host(`${DOMAIN}`) && PathPrefix(`${API_PATH_PREFIX:-/api}`)
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-api-pathprefix.middlewares=${COMPOSE_PROJECT_NAME}-api-stripprefix@docker
     networks:
       default:
         aliases:
-          - api
+          - ${COMPOSE_PROJECT_NAME}-api

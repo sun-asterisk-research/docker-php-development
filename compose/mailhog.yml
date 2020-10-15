@@ -1,4 +1,9 @@
-version: '2.2'
+version: "2.2"
+
+networks:
+  default:
+  frontend:
+    external: true
 
 services:
   mailhog:
@@ -6,8 +11,11 @@ services:
     restart: always
     labels:
       - traefik.enable=true
-      - traefik.http.routers.mailhog.rule=Host(`${DOMAIN_SECONDARY}`)
-      - traefik.http.services.mailhog.loadbalancer.server.port=8025
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-mailhog.rule=Host(`${DOMAIN_SECONDARY}`)
+      - traefik.http.services.${COMPOSE_PROJECT_NAME}-mailhog.loadbalancer.server.port=8025
+    networks:
+      - default
+      - frontend
     mem_limit: ${MEMORY_LIMIT_MAILHOG:-200m}
     environment:
       - MH_STORAGE=maildir

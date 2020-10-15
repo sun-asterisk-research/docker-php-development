@@ -1,4 +1,9 @@
-version: '2.2'
+version: "2.2"
+
+networks:
+  default:
+  frontend:
+    external: true
 
 services:
   minio:
@@ -9,8 +14,11 @@ services:
       - /data
     labels:
       - traefik.enable=true
-      - traefik.http.routers.minio.rule=Host(`minio.${DOMAIN_SECONDARY}`)
-      - traefik.http.services.minio.loadbalancer.server.port=9000
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-minio.rule=Host(`minio.${DOMAIN_SECONDARY}`)
+      - traefik.http.services.${COMPOSE_PROJECT_NAME}-minio.loadbalancer.server.port=9000
+    networks:
+      - default
+      - frontend
     environment:
       MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY:-minio}
       MINIO_SECRET_KEY: ${MINIO_SECRET_KEY:-miniostorage}
