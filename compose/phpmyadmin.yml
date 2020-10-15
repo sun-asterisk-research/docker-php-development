@@ -1,4 +1,9 @@
-version: '2.2'
+version: "2.2"
+
+networks:
+  default:
+  frontend:
+    external: true
 
 services:
   phpmyadmin:
@@ -6,8 +11,11 @@ services:
     restart: always
     labels:
       - traefik.enable=true
-      - traefik.http.routers.phpmyadmin.rule=Host(`phpmyadmin.${DOMAIN_SECONDARY}`)
-      - traefik.http.services.phpmyadmin.loadbalancer.server.port=80
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-phpmyadmin.rule=Host(`phpmyadmin.${DOMAIN_SECONDARY}`)
+      - traefik.http.services.${COMPOSE_PROJECT_NAME}-phpmyadmin.loadbalancer.server.port=80
+    networks:
+      - default
+      - frontend
     environment:
       - PMA_HOSTS=mysql,mysql-test
       - PMA_PORT=3306

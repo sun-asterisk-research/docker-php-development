@@ -1,4 +1,9 @@
-version: '2.2'
+version: "2.2"
+
+networks:
+  default:
+  frontend:
+    external: true
 
 services:
   nginx:
@@ -10,8 +15,11 @@ services:
       - envsubst '$${DOCUMENT_ROOT}' < /etc/nginx/conf.d/default.conf.tpl | tee /etc/nginx/conf.d/default.conf && exec nginx -g "daemon off;"
     labels:
       - traefik.enable=true
-      - traefik.http.routers.nginx.rule=Host(`${DOMAIN}`)
-      - traefik.http.services.nginx.loadbalancer.server.port=80
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-nginx.rule=Host(`${DOMAIN}`)
+      - traefik.http.services.${COMPOSE_PROJECT_NAME}-nginx.loadbalancer.server.port=80
+    networks:
+      - default
+      - frontend
     environment:
       - DOCUMENT_ROOT=${NGINX_DOCUMENT_ROOT:-/php/public}
     volumes:
