@@ -3,7 +3,7 @@ version: "2.2"
 networks:
   default:
   frontend:
-    external: true
+    name: frontend
 
 services:
   web:
