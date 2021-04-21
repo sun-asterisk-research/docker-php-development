@@ -23,7 +23,7 @@ services:
     environment:
       - DOCUMENT_ROOT=${NGINX_DOCUMENT_ROOT:-/php/public}
     volumes:
-      - ./config/nginx/default.conf:/etc/nginx/conf.d/default.conf.tpl:ro
+      - ${NGINX_CONFIG_TEMPLATE:-./config/nginx/default.conf}:/etc/nginx/conf.d/default.conf.tpl:ro
     volumes_from:
       - php
 

@@ -4,11 +4,11 @@ services:
   mariadb:
     image: mariadb:10
     restart: always
-    mem_limit: ${MYSQL_MEMORY_LIMIT:-1G}
+    mem_limit: ${MEMORY_LIMIT_MYSQL:-1G}
     volumes:
       - ${PATH_DATA:-./data}/mariadb:/var/lib/mysql
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_USER: ${DB_USERNAME}
       MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-root}
