@@ -17,7 +17,7 @@ services:
       - default
       - frontend
     environment:
-      - PMA_HOSTS=mysql,mysql-test
+      - PMA_HOSTS=mysql,mysql-test,mariadb
       - PMA_PORT=3306
       - PMA_USER=${DB_USERNAME}
       - PMA_PASSWORD=${DB_PASSWORD}
