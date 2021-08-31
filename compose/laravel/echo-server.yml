@@ -11,7 +11,7 @@ services:
     restart: always
     labels:
       - traefik.enable=true
-      - traefik.port=6001
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-laravel-echo.tls=true
       - traefik.http.routers.${COMPOSE_PROJECT_NAME}-laravel-echo.rule=Host(`${DOMAIN}`) && PathPrefix(`/socket.io`)
       - traefik.http.services.${COMPOSE_PROJECT_NAME}-laravel-echo.loadbalancer.server.port=6001
     networks:

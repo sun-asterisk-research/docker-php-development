@@ -11,6 +11,7 @@ services:
     restart: always
     labels:
       - traefik.enable=true
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-pgadmin.tls=true
       - traefik.http.routers.${COMPOSE_PROJECT_NAME}-pgadmin.rule=Host(`pgadmin.${DOMAIN_SECONDARY}`)
       - traefik.http.services.${COMPOSE_PROJECT_NAME}-pgadmin.loadbalancer.server.port=80
     networks:

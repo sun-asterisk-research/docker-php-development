@@ -10,17 +10,22 @@ services:
     restart: always
     command:
       - --api.dashboard=true
-      - --entrypoints.http.address=:80
+      - --entrypoints.web.address=:80
+      - --entrypoints.web.http.redirections.entryPoint.to=websecure
+      - --entrypoints.web.http.redirections.entryPoint.scheme=https
+      - --entrypoints.websecure.address=:443
       - --providers.docker
       - --providers.docker.network=frontend
       - --providers.docker.watch=true
       - --providers.docker.exposedbydefault=false
     ports:
       - ${PORT:-80}:80
+      - ${PORT_HTTPS:-443}:443
     networks:
       - frontend
     labels:
       - traefik.enable=true
+      - traefik.http.routers.traefik.tls=true
       - traefik.http.routers.traefik.rule=Host(`traefik.${DOMAIN_SECONDARY}`)
       - traefik.http.routers.traefik.service=api@internal
       - traefik.http.middlewares.traefik-dashboard.redirectRegex.regex=/

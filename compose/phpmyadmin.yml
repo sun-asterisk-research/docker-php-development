@@ -11,6 +11,7 @@ services:
     restart: always
     labels:
       - traefik.enable=true
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-phpmyadmin.tls=true
       - traefik.http.routers.${COMPOSE_PROJECT_NAME}-phpmyadmin.rule=Host(`phpmyadmin.${DOMAIN_SECONDARY}`)
       - traefik.http.services.${COMPOSE_PROJECT_NAME}-phpmyadmin.loadbalancer.server.port=80
     networks:

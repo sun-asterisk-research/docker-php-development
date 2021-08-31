@@ -11,6 +11,7 @@ services:
     restart: always
     labels:
       - traefik.enable=true
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-mailhog.tls=true
       - traefik.http.routers.${COMPOSE_PROJECT_NAME}-mailhog.rule=Host(`mailhog.${DOMAIN_SECONDARY}`)
       - traefik.http.services.${COMPOSE_PROJECT_NAME}-mailhog.loadbalancer.server.port=8025
     networks:

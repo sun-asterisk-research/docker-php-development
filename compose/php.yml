@@ -15,6 +15,7 @@ services:
       - envsubst '$${DOCUMENT_ROOT}' < /etc/nginx/conf.d/default.conf.tpl | tee /etc/nginx/conf.d/default.conf && exec nginx -g "daemon off;"
     labels:
       - traefik.enable=true
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-nginx.tls=true
       - traefik.http.routers.${COMPOSE_PROJECT_NAME}-nginx.rule=Host(`${DOMAIN}`)
       - traefik.http.services.${COMPOSE_PROJECT_NAME}-nginx.loadbalancer.server.port=80
     networks:

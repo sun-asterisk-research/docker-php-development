@@ -11,6 +11,7 @@ services:
     restart: always
     labels:
       - traefik.enable=true
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-web.tls=true
       - traefik.http.routers.${COMPOSE_PROJECT_NAME}-web.rule=Host(`${DOMAIN_WEB}`)
       - traefik.http.services.${COMPOSE_PROJECT_NAME}-web.loadbalancer.server.port=3000
     networks:
@@ -26,6 +27,7 @@ services:
     labels:
       - traefik.http.middlewares.${COMPOSE_PROJECT_NAME}-api-stripprefix.stripprefix.prefixes=${API_PATH_PREFIX:-/api}
       - traefik.http.middlewares.${COMPOSE_PROJECT_NAME}-api-stripprefix.stripprefix.forceSlash=false
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-api-pathprefix.tls=true
       - traefik.http.routers.${COMPOSE_PROJECT_NAME}-api-pathprefix.rule=Host(`${DOMAIN_WEB}`) && PathPrefix(`${API_PATH_PREFIX:-/api}`)
       - traefik.http.routers.${COMPOSE_PROJECT_NAME}-api-pathprefix.middlewares=${COMPOSE_PROJECT_NAME}-api-stripprefix@docker
     networks:
