@@ -1,0 +1,6 @@
+version: '2.2'
+
+services:
+  nginx:
+    labels:
+      - traefik.http.middlewares.${COMPOSE_PROJECT_NAME}-api-stripprefix.stripprefix.prefixes=${API_PATH_PREFIX:-/}

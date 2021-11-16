@@ -21,9 +21,9 @@ services:
       - frontend
     labels:
       - traefik.enable=true
-      - traefik.http.routers.traefik.rule=Host(`traefik.${DOMAIN_SECONDARY}`)
-      - traefik.http.routers.traefik.service=api@internal
-      - traefik.http.middlewares.traefik-dashboard.redirectRegex.regex=/
-      - traefik.http.middlewares.traefik-dashboard.redirectRegex.replacement=/dashboard/
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-traefik.rule=Host(`traefik.${DOMAIN_SECONDARY}`)
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-traefik.service=api@internal
+      - traefik.http.middlewares.${COMPOSE_PROJECT_NAME}-traefik-dashboard.redirectRegex.regex=/
+      - traefik.http.middlewares.${COMPOSE_PROJECT_NAME}-traefik-dashboard.redirectRegex.replacement=/dashboard/
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
