@@ -1,67 +1,76 @@
 #!/bin/bash
 
 __getenv() {
-    grep -m1 ^$1= .env | cut -d'=' -f2
+  grep -m1 ^$1= .env | cut -d'=' -f2
 }
 
 __get_compose_files() {
-    files=( 'docker-compose.yml' )
+  files=('docker-compose.yml')
 
-    while read -r service; do
-        if [ ! -z $service ]; then
-            files+=( "compose/$service.yml" )
-        fi
-    done < services
-
-    if [ -f "docker-compose.override.yml" ]; then
-        files+=( 'docker-compose.override.yml' )
+  while read -r service; do
+    if [ ! -z $service ]; then
+      files+=("compose/$service.yml")
     fi
+  done <services
 
-    files_argument=''
+  if [ -f "docker-compose.override.yml" ]; then
+    files+=('docker-compose.override.yml')
+  fi
 
-    for file in "${files[@]}"
-    do
-        files_argument+="-f $file "
-    done
+  files_argument=''
 
-    echo $files_argument
+  for file in "${files[@]}"; do
+    files_argument+="-f $file "
+  done
+
+  echo $files_argument
+}
+
+init() {
+  project_name="$1"
+
+  cp .env.example .env
+  cp services.example services
+
+  if [ ! -z $project_name ]; then
+    sed -i "s/COMPOSE_PROJECT_NAME=php-dev/COMPOSE_PROJECT_NAME=$project_name/g" .env
+  fi
 }
 
 up() {
-    docker-compose $(__get_compose_files) up -d $@
+  docker-compose $(__get_compose_files) up -d $@
 }
 
 up-undetached() {
-    docker-compose $(__get_compose_files) up $@
+  docker-compose $(__get_compose_files) up $@
 }
 
 down() {
-    docker-compose $(__get_compose_files) down $@
+  docker-compose $(__get_compose_files) down $@
 }
 
 ps() {
-    docker ps -f name=$(__getenv COMPOSE_PROJECT_NAME)_
+  docker ps -f name=$(__getenv COMPOSE_PROJECT_NAME)_
 }
 
 sh() {
-    docker exec -it $(__getenv COMPOSE_PROJECT_NAME)_$1_1 sh
+  docker exec -it $(__getenv COMPOSE_PROJECT_NAME)_$1_1 sh
 }
 
 bash() {
-    docker exec -it $(__getenv COMPOSE_PROJECT_NAME)_$1_1 bash
+  docker exec -it $(__getenv COMPOSE_PROJECT_NAME)_$1_1 bash
 }
 
 exec() {
-    docker exec -it $(__getenv COMPOSE_PROJECT_NAME)_$1_1 ${@:2}
+  docker exec -it $(__getenv COMPOSE_PROJECT_NAME)_$1_1 ${@:2}
 }
 
 logs() {
-    docker logs $(__getenv COMPOSE_PROJECT_NAME)_$1_1 ${@:2}
+  docker logs $(__getenv COMPOSE_PROJECT_NAME)_$1_1 ${@:2}
 }
 
 inspect() {
-    docker inspect $(__getenv COMPOSE_PROJECT_NAME)_$1_1 ${@:2}
+  docker inspect $(__getenv COMPOSE_PROJECT_NAME)_$1_1 ${@:2}
 }
-
 
 $@
