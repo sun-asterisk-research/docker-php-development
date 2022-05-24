@@ -7,15 +7,22 @@ Docker containers for Viblo development.
 - Docker version at least 18.06
 - Docker compose version at least 1.22.0
 
+## Getting started
+
+```
+# clone repo:
+git clone git@github.com:sun-asterisk-research/docker-php-development.git docker
+
+# init project:
+./project init
+```
+
+There are 2 files that will be created: `.env` & `services`. They are copying files of `.env.example` and `services.example`. Therefore, please make them manually if the command `init` does not work.
+
 ## Setup development environment
 
 ### Environment variables
 
-Make a **.env** file
-
-```shell
-cp .env.example .env
-```
 
 Notable things are:
 
@@ -35,13 +42,7 @@ Not very important things:
 
 ### Services
 
-Make a **services** file
-
-```shell
-cp services.example services
-```
-
-Specify which service to include. Example:
+Open **services** file. Specify which service to include. Example:
 
 ```plain
 mysql
