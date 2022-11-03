@@ -17,7 +17,11 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.${COMPOSE_PROJECT_NAME}-minio.rule=Host(`minio.${DOMAIN_SECONDARY}`)
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-minio.service=${COMPOSE_PROJECT_NAME}-minio
       - traefik.http.services.${COMPOSE_PROJECT_NAME}-minio.loadbalancer.server.port=9001
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-minio-api.rule=Host(`minio-api.${DOMAIN_SECONDARY}`)
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-minio-api.service=${COMPOSE_PROJECT_NAME}-minio-api
+      - traefik.http.services.${COMPOSE_PROJECT_NAME}-minio-api.loadbalancer.server.port=9000
     networks:
       - default
       - frontend
