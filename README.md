@@ -28,7 +28,13 @@ Notable things are:
 
 - `PATH_PHP`, `PATH_WEB`: paths to your code directories. They will be mounted into the containers.
 - `DOMAIN` and `PORT`: Domain and port to access the application.
+- `DOMAIN_WEB`: defines public domain for your Node.js application.
 - `COMPOSE_PROJECT_NAME`: used to isolate environments when you run multiple projects.
+
+*Note:* To use the Node.js application & the PHP application in the same domain
+```shell
+cp docker-compose.override.yml.example docker-compose.override.yml
+```
 
 Not very important things:
 
